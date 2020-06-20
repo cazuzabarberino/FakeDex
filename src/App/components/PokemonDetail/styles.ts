@@ -6,6 +6,7 @@ interface ContainerProps {
   y: number;
   width: number;
   height: number;
+  animate: boolean;
 }
 
 const expandAnimation = (
@@ -37,10 +38,14 @@ export const Container = styled.div<ContainerProps>`
   font-family: "Roboto Slab", monospace;
   position: fixed;
   z-index: 3;
+  opacity: 0;
 
-  animation: ${({ x, y, width, height }) =>
-      expandAnimation(x, y, width, height)}
-    0.3s ease forwards;
+  ${({ x, y, width, height, animate }) =>
+    animate &&
+    css`
+      opacity: 1;
+      animation: ${expandAnimation(x, y, width, height)} 0.3s ease forwards;
+    `}
 `;
 
 interface ReverseContainerProps {

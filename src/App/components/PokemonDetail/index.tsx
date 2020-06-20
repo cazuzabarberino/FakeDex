@@ -61,6 +61,7 @@ export default ({ pokemonID, initialRect, pokemonData }: Props) => {
   if (pokemonID > 0)
     return (
       <Container
+        animate={imageLoaded}
         x={initialRect.x}
         y={initialRect.y}
         width={initialRect.width}
@@ -72,6 +73,7 @@ export default ({ pokemonID, initialRect, pokemonData }: Props) => {
   else
     return (
       <ReverseContainer
+        animate={true}
         animatonEnded={animatonEnded}
         x={initialRect.x}
         y={initialRect.y}
