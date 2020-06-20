@@ -7,7 +7,7 @@ const colorByType: {
   ice: "#98d6d5",
   fire: "#f17f2d",
   dragon: "#6357a6",
-  eletric: "#f7d233",
+  electric: "#f7d233",
   steel: "#b8b8d2",
   rock: "#b9a338",
   ground: "#e0c166",

@@ -1,35 +1,60 @@
-import React from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import Pokemon from "../../models/Pokemon";
-import { Container, BadgeWrapper, CardHeader } from "./styles";
+import { getPokemonData } from "../../services/pokeApi";
 import TypeBadge from "../TypeBadge";
+import { BadgeWrapper, CardHeader, Container, Visual } from "./styles";
+import { useDetailedView } from "../../Providers/DetailedView";
 
-const pokemon: Pokemon = {
-  id: 6,
-  name: "charizard",
-  sprites: {
-    front_default:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png",
-    front_female: null,
-    front_shiny:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/6.png",
-    front_shiny_female: null,
-  },
-  types: ["fire", "flying"],
-};
+interface Props {
+  pokemonId: number;
+}
 
-export default () => {
+export default ({ pokemonId }: Props) => {
+  const [loading, setLoading] = useState(true);
+  const pokemonRef = useRef({} as Pokemon);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { toggleDetailedView } = useDetailedView();
+
+  useEffect(() => {
+    async function getPokemon() {
+      pokemonRef.current = await getPokemonData(pokemonId);
+
+      setLoading(false);
+    }
+
+    getPokemon();
+  }, [pokemonId]);
+
+  const openPokemonDetail = useCallback(() => {
+    toggleDetailedView(
+      pokemonId,
+      pokemonRef.current,
+      containerRef.current?.getBoundingClientRect()
+    );
+  }, [pokemonId, toggleDetailedView]);
+
   return (
-    <Container>
-      <CardHeader types={pokemon.types}>
-        {/* <h3>{pokemon.id}</h3> */}
-        <h2>{pokemon.name.toUpperCase()}</h2>
-      </CardHeader>
-      <img src={pokemon.sprites.front_default} alt={pokemon.name + " sprite"} />
-      <BadgeWrapper>
-        {pokemon.types.map((type) => (
-          <TypeBadge key={type} type={type} />
-        ))}
-      </BadgeWrapper>
+    <Container ref={containerRef}>
+      {loading ? (
+        <h2>Loading</h2>
+      ) : (
+        <Visual onClick={openPokemonDetail}>
+          <CardHeader
+            types={pokemonRef.current.types.map(({ type: { name } }) => name)}
+          >
+            <h2>{pokemonRef.current.name.toUpperCase()}</h2>
+          </CardHeader>
+          <img
+            src={pokemonRef.current.sprites.front_default}
+            alt={pokemonRef.current.name + " sprite"}
+          />
+          <BadgeWrapper>
+            {pokemonRef.current.types.map(({ type: { name } }) => (
+              <TypeBadge key={name} type={name} />
+            ))}
+          </BadgeWrapper>
+        </Visual>
+      )}
     </Container>
   );
 };

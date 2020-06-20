@@ -8,6 +8,7 @@ interface ContainerProps {
 export const Container = styled.div<ContainerProps>`
   background: ${({ type }) => colorByType[type]};
   color: #fff;
+  font-size: 14px;
   width: 80px;
   padding: 8px 16px;
   border-radius: 32px;

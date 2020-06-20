@@ -7,5 +7,9 @@ export default interface Pokemon {
     front_shiny: string;
     front_shiny_female: null | string;
   };
-  types: string[];
+  types: Array<{
+    type: {
+      name: string;
+    };
+  }>;
 }
