@@ -12,4 +12,10 @@ export default interface Pokemon {
       name: string;
     };
   }>;
+  stats: Array<{
+    base_stat: number;
+    stat: {
+      name: string;
+    };
+  }>;
 }

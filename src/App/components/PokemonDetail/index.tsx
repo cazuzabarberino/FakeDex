@@ -9,6 +9,7 @@ import {
   Visual,
   ReverseContainer,
 } from "./styles";
+import PokemonStats from "../PokemonStats";
 
 interface Props {
   pokemonID: number;
@@ -53,6 +54,7 @@ export default ({ pokemonID, initialRect, pokemonData }: Props) => {
               <TypeBadge key={name} type={name} />
             ))}
           </BadgeWrapper>
+          <PokemonStats stats={pokemon.stats} />
         </Visual>
       ),
     [pokemon, closePokemonDetail, handleOnLoad]

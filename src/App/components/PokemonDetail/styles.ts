@@ -20,8 +20,6 @@ const expandAnimation = (
     top: ${y + "px"};
     width: ${width + "px"};
     height: ${height + "px"};
-    /* box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
-    transform: translateY(-8px) scale(1.05); */
   }
 
   to {
@@ -29,8 +27,6 @@ const expandAnimation = (
     left: 0;
     width: 100vw;
     height: calc(100vh - 64px);
-    /* box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
-    transform: translateY(0px) scale(1); */
   }
 `;
 
@@ -39,12 +35,13 @@ export const Container = styled.div<ContainerProps>`
   position: fixed;
   z-index: 3;
   opacity: 0;
+  overflow: hidden;
 
   ${({ x, y, width, height, animate }) =>
     animate &&
     css`
       opacity: 1;
-      animation: ${expandAnimation(x, y, width, height)} 0.3s ease forwards;
+      animation: ${expandAnimation(x, y, width, height)} 0.3s ease-out forwards;
     `}
 `;
 
