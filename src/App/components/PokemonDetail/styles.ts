@@ -122,3 +122,7 @@ export const BadgeWrapper = styled.div`
   margin-bottom: 16px;
   place-content: center;
 `;
+
+export const AbilityWrapper = styled.div`
+  margin-top: 20px;
+`;

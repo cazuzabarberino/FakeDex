@@ -8,8 +8,10 @@ import {
   Container,
   Visual,
   ReverseContainer,
+  AbilityWrapper,
 } from "./styles";
 import PokemonStats from "../PokemonStats";
+import PokemonAbility from "../PokemonAbility";
 
 interface Props {
   pokemonID: number;
@@ -55,6 +57,11 @@ export default ({ pokemonID, initialRect, pokemonData }: Props) => {
             ))}
           </BadgeWrapper>
           <PokemonStats stats={pokemon.stats} />
+          <AbilityWrapper>
+            {pokemon.abilities.map(({ ability: { name }, is_hidden }) => (
+              <PokemonAbility name={name} is_hidden={is_hidden} />
+            ))}
+          </AbilityWrapper>
         </Visual>
       ),
     [pokemon, closePokemonDetail, handleOnLoad]
