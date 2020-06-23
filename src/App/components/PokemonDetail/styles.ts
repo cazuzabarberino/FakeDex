@@ -27,6 +27,7 @@ const expandAnimation = (
     left: 0;
     width: 100vw;
     height: calc(100vh - 64px);
+    overflow: auto;
   }
 `;
 
@@ -64,7 +65,8 @@ export const Visual = styled.div`
   position: relative;
   background: ${({ theme }) => theme.primary.dark};
   border-radius: 8px;
-  height: 100%;
+  min-height: 100vh;
+  width: 100%;
 
   display: grid;
   grid-auto-flow: row;
