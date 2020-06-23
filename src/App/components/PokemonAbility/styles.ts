@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const Container = styled.div`
   margin: 0 8px;
   padding: 8px 16px;
-  /* border: 2px solid #fff; */
   background: ${({ theme }) => theme.primary.light};
   border-radius: 8px;
 

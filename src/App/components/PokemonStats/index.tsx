@@ -20,7 +20,7 @@ export default ({ stats }: Props) => {
   return (
     <Container>
       {stats.map(({ base_stat }, i) => (
-        <div>
+        <div key={statName[i]}>
           <p>{statName[i]}</p> :{" "}
           <StatValue statValue={base_stat}>
             {base_stat}

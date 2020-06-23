@@ -9,9 +9,11 @@ import {
   Visual,
   ReverseContainer,
   AbilityWrapper,
+  MoveWrapper,
 } from "./styles";
 import PokemonStats from "../PokemonStats";
 import PokemonAbility from "../PokemonAbility";
+import PokemonMove from "../PokemonMove";
 
 interface Props {
   pokemonID: number;
@@ -59,9 +61,42 @@ export default ({ pokemonID, initialRect, pokemonData }: Props) => {
           <PokemonStats stats={pokemon.stats} />
           <AbilityWrapper>
             {pokemon.abilities.map(({ ability: { name }, is_hidden }) => (
-              <PokemonAbility name={name} is_hidden={is_hidden} />
+              <PokemonAbility key={name} name={name} is_hidden={is_hidden} />
             ))}
           </AbilityWrapper>
+          <MoveWrapper>
+            {pokemon.moves
+              .filter(({ version_group_details }) => {
+                const { move_learn_method } = version_group_details[
+                  version_group_details.length - 1
+                ];
+                return move_learn_method.name === "level-up";
+              })
+              .sort((a, b) => {
+                const aLevel =
+                  a.version_group_details[a.version_group_details.length - 1]
+                    .level_learned_at;
+                const bLevel =
+                  b.version_group_details[b.version_group_details.length - 1]
+                    .level_learned_at;
+                return aLevel - bLevel;
+              })
+              .map(({ move: { name }, version_group_details }) => {
+                const {
+                  level_learned_at,
+                  move_learn_method,
+                } = version_group_details[version_group_details.length - 1];
+
+                return (
+                  <PokemonMove
+                    key={name}
+                    name={name}
+                    learnLevel={level_learned_at}
+                    learnMethod={move_learn_method.name}
+                  />
+                );
+              })}
+          </MoveWrapper>
         </Visual>
       ),
     [pokemon, closePokemonDetail, handleOnLoad]

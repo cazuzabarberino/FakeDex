@@ -65,7 +65,7 @@ export const Visual = styled.div`
   position: relative;
   background: ${({ theme }) => theme.primary.dark};
   border-radius: 8px;
-  min-height: 100vh;
+  min-height: calc(100vh - 64px);
   width: 100%;
 
   display: grid;
@@ -126,5 +126,9 @@ export const BadgeWrapper = styled.div`
 `;
 
 export const AbilityWrapper = styled.div`
+  margin-top: 20px;
+`;
+
+export const MoveWrapper = styled.div`
   margin-top: 20px;
 `;

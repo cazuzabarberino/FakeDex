@@ -22,4 +22,15 @@ export default interface Pokemon {
     ability: { name: string };
     is_hidden: boolean;
   }>;
+  moves: Array<{
+    move: {
+      name: string;
+    };
+    version_group_details: Array<{
+      level_learned_at: number;
+      move_learn_method: {
+        name: string;
+      };
+    }>;
+  }>;
 }

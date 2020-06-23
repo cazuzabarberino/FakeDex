@@ -31,7 +31,7 @@ interface StatValueProps {
   statValue: number;
 }
 
-export const StatValue = styled.p<StatValueProps>`
+export const StatValue = styled.div<StatValueProps>`
   padding: 4px 8px;
   margin-left: 4px;
   background: ${({ theme }) => theme.primary.light};
